@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
 
-
 void repeteNum (int vezes, int num) {
     if (vezes > 0) {
         for (int i = vezes ; i > 0 ; i--) {
@@ -24,7 +23,6 @@ int main () {
         dezenas = input/10;
 
         diagrama[dezenas][unidades] += 1;
-
     }
 
     for (i = 0 ; i <= 9 ; i++) {
@@ -35,7 +33,5 @@ int main () {
         putchar('\n');
     }
     
-
     return 0;
-
 }
