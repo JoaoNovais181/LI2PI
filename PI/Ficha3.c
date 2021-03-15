@@ -133,6 +133,7 @@ int maximum (int v[], int N, int *m){
         }
         return 0;
     }
+    else return 1;
 }
 
 //Exercicio 7
