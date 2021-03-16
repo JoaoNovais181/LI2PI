@@ -162,6 +162,7 @@ int length (char s[]) {
     return r; 
 }
 
+
 void strrev (char s[]) {
     int i, l = (length(s)-1);
 
@@ -199,9 +200,109 @@ void truncW (char t[], int n){
     }
 }
 
+char charMaisfreq (char s[]){
+    if (length(s) == 0) return 0;
+    else {
+        int charList[255] = {0}, raux = 0, r, i;
+
+        for (i = 0 ; s[i]!= 0 ; i++) charList[(int)(s[i])]++;
+
+        for (i = 0 ; s[i]!=0 ; i++) if (charList[(int)(s[i])] > raux) {
+            r=(int)(s[i]);
+            raux=charList[(int)(s[i])];
+        }
+        
+        return (char)(r);
+    }
+}
+
+int maior2 (int a, int b) {
+    return a>b?a:b;
+}
+
+int iguaisConsecutivos (char s[]) {
+    int i, atual=0, maior=0; char ultimo=0;
+
+    for (i=0 ; s[i]!=0 ; i++) {
+        if (s[i]!=ultimo) {
+            ultimo = s[i];
+            atual = 1;
+            maior = maior2(atual, maior);
+        }
+        else {
+            atual++;
+            maior = maior2(atual, maior);
+        }
+    }
+    return maior;
+}
+
+void reset (char s[]) {
+    int i;
+    for (i=0 ; s[i]!=0 ; i++) s[i]='\0';
+}
+
+int elem(char a, char s[]) {
+    int i,r=1;
+    for (i=0 ; s[i]!=0 ; i++) if (s[i]==a) r=0;
+    
+    return r;
+}
+void adicionaAtras (char a, char s[],int N) {
+    int i; char antes=s[0], atual;
+
+    for (i=1 ; i<N ; i++) {
+        atual = s[i];
+        s[i] = antes;
+        antes = atual;
+    }
+    s[0] = a;
+}
+
+int difConsecutivos (char s[]) {
+    int i, atual=0, maior=0, len, j=0;
+    len = length(s);
+    char saux[len];
+    reset(saux);
+
+    for (i=0 ; s[i]!=0 ; i++) {
+        if (elem(s[i], saux)==0) {
+            reset(saux);
+            j=0;
+            saux[j] = s[i];
+            j++;
+            maior = maior2(atual, maior);
+            atual = 1;
+        }
+        else {
+            atual++;
+            maior = maior2(atual, maior);
+            saux[j] = s[i];
+            j++;
+        }
+    }
+    reset(saux);
+    atual=0;
+    for (i=len-1 ; i>=0 ; i--) {
+        if (elem(s[i], saux)==0) {
+            reset(saux);
+            atual = 1;
+            maior = maior2(atual, maior);
+            adicionaAtras(s[i], saux,len);
+        }
+        else {
+            atual++;
+            maior = maior2(atual, maior);
+            adicionaAtras(s[i], saux,len);
+        }
+    }
+    return maior;
+}
+
 int main(){
-    char a[] = "Puta Puta Puta";
-    truncW(a,3);
-    printf("%s\n", a);
+    char a[] = "abccc";int b;
+    b = difConsecutivos(a);
+    printf("%d\n", b);
     return 0;
 }
+
