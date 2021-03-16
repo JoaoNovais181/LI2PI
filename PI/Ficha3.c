@@ -133,6 +133,7 @@ int maximum (int v[], int N, int *m){
         }
         return 0;
     }
+    else return 1;
 }
 
 //Exercicio 7
@@ -140,6 +141,16 @@ void quadrados (int q[], int N){
     int i = -1;
     for ( ; i<N-1 ; i++) q[i+1] = i*i + (2*i+1);
 }
+
+/* Maneira do Stor
+void quadrados (int q[], int N) {
+    int quad = 0, i;
+    for (i=0 ; i<N ; i++) {
+        if (i==0) q[0] = 0;
+        else q[i] = q[i-1] + 2*(i-1)+1;
+    }
+}
+*/
 
 //Exercicio 8
 void pascal (int v[], int N) {

@@ -10,7 +10,7 @@ void repeteNum (int vezes, int num) {
 }
 
 int main () {
-    int diagrama[10][10] = {{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0}},
+    int diagrama[10][10] = {0},
         input = 0, i;
 
     while (input != -1) {
@@ -22,7 +22,7 @@ int main () {
         unidades = input%10;
         dezenas = input/10;
 
-        diagrama[dezenas][unidades] += 1;
+        diagrama[dezenas][unidades]++;
     }
 
     for (i = 0 ; i <= 9 ; i++) {
