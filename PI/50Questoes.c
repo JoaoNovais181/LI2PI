@@ -299,10 +299,165 @@ int difConsecutivos (char s[]) {
     return maior;
 }
 
+int maiorPrefixo (char s1 [], char s2 []) {
+    int i,r=0;
+
+    for (i=0 ; (s1[i]!=0)&&(s2[i]!=0) ; i++) {
+        if (s1[i]!=s2[i]) return r;
+        else r++;
+    }
+    return r;
+}
+
+//Melhorar
+int len (char s[]) {
+    int i=0;
+    while (s[i]!=0) i++;
+    return i-1;    
+}
+int maiorSufixo (char s1 [], char s2 []) {
+    int l1, l2,r=0;
+    l1 = len(s1); l2 = len(s2);
+    while ((l1>=0) && (l2>=0)) {
+        if (s1[l1]!=s2[l2]) return r;
+        else r++;
+        l1--;
+        l2--;
+    }
+    return r;
+}
+
+int sufPref (char s1[], char s2[]) {
+    int inicio, i, r=0, atual;
+
+    for (inicio=0 ; s1[inicio]!=0 ; inicio++) {
+        atual = 0;
+        for (i=0 ; (s1+inicio)[i]!=0 ; i++) {
+            if ((s1+inicio)[i] != s2[i]) atual = 0;
+            else atual++;
+        }
+        if (atual>r) r=atual;
+    }
+    return r;
+}
+
+int contaPal (char s[]) {
+    int i, r=0;
+
+    for (i=0 ; s[i]!=0 ; i++)
+        if (((s[i-1]==' ') || (s[i-1]==0)) && ((s[i]!=' ') && (s[i]!='\n'))) r++;
+
+    return r;
+}
+
+int isVowel (char a) {
+    char str[10] = {'A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u'}; int i;
+
+    for (i=0 ; i<10 ; i++) if (a == str[i]) return 1;
+
+    return 0;
+}
+
+int contaVogais (char s[])  {
+    int i, r=0;
+
+    for (i=0 ; s[i]!=0 ; i++) if (isVowel(s[i]) == 1) r++;
+
+    return r; 
+}
+
+int estaEm (char a, char s[]) {
+    int i;
+
+    for (i=0 ; s[i]!=0 ; i++) if (s[i] == a) return 1;
+
+    return 0;
+}
+
+int contida (char a[], char b[]) {
+    int i;
+
+    for (i=0 ; a[i]!=0 ; i++) if (estaEm(a[i], b) == 0) return 0;
+
+    return 1;
+}
+
+int palindorome (char s[]) {
+    int i, l = len(s);
+
+    for (i=0 ; i<(l/2)+1 ; i++) if (s[i]!=s[l-i]) return 0;
+
+    return 1;
+}
+
+int remRep (char x[]) {
+    if (x[0]==0) return 0;
+    else {
+        int i, c , r=1; char ultimo = x[0];
+        for (i=1 ; x[i]!=0 ; i++) {
+            if (x[i]==ultimo) {
+                for (c=i ; x[c]!=0 ; c++) x[c]=x[c+1]; 
+                i--;
+            }
+            else r++;
+            ultimo = x[i];
+        }
+        return r;
+    }
+}
+
+int limpaEspacos (char t[]) {
+    int i, c, r=0, aux=0;
+
+    for (i=0 ; t[i]!=0 ; i++) {
+        if (t[i]==' ') {
+            if (aux >= 1) {
+                for (c=i ; t[c]!=0 ; c++) t[c]=t[c+1]; 
+                i--;
+            }
+            else r++;
+            aux ++;
+            
+        }
+        else {
+            aux = 0;
+            r++;
+        }
+    }
+    return r;
+}
+
+void rightShift (int v[], int N, int x, int *i) {
+    int atual, c , proximo;
+    atual = v[*i];
+    for (c=(*i)+1 ; c<N+1 ; c++) {
+        proximo = v[c];
+        v[c]=atual;
+        atual = proximo;
+    }
+    v[*i]=x;
+    (*i)++;
+}
+
+void insere (int v[], int N, int x) {
+    int i,c, atual, proximo;
+
+    for (i=0 ; i<=N ; i++) {
+        if ((i==0) && (x<v[i])) {
+            rightShift(v,N,x,&i);
+        }
+         if ((x>=v[i]) && (x<v[i+1])) {
+            i++;
+            rightShift(v,N,x,&(i));
+         }
+    }
+}
+
 int main(){
-    char a[] = "abccc";int b;
-    b = difConsecutivos(a);
-    printf("%d\n", b);
+    char a[] = "AABCBA", b[] = "bracara augusta"; int c;
+    c = remRep(a);
+    puts(a);
+    printf("%d\n", c);
     return 0;
 }
 
