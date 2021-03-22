@@ -180,6 +180,25 @@ void pascal1 (int v[], int N) {
     }
 }
 
+void aux (int v[], int N){
+    int i; 
+    if (N!=0) { 
+        v[N-1]=1;
+        for(i=N-2 ; i>=0 ; i--)
+            v[i] = v[i] + v[i-1];
+        for (i=0 ; i<N ; i++)
+            printf("%d ", v[i]);
+        putchar('\n');
+    }
+}
+
+void pascal2 (int v[], int N) {
+    int i;
+    for (i=1 ; i<=N ; i++) {
+        aux(v,i);
+    }
+}
+
 int main () {
     int v[100000], q[10];
     int n=10;
