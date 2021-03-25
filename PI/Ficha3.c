@@ -201,6 +201,6 @@ void pascal2 (int v[], int N) {
 
 int main () {
     int v[100000], q[10];
-    int n=10;
+    int n=4;
     pascal1(v, n);
 }

@@ -124,14 +124,43 @@ int duplicaVogais (char *s) {
             i++;
             r++;
         }
-        else {
-        }
     }
     return r;
 }
 
+//PARTE DOIS
+
+//Exercicio 1
+int ordenado (int v[], int N) {
+    int i, r=1;
+
+    for (i=0 ; i<N-1 ; i++) {
+        if (v[i]>v[i+1]) r=0; 
+    }
+
+    return r;
+}
+
+void merge (int a[], int na, int b[], int nb, int r[]) {
+    int i, ia=0, ib=0;
+//    na--, nb--;
+    for (i=0 ; i<na+nb ; i++) {
+        if (a[ia] <= b[ib]) {
+            r[i] = a[ia];
+            ia++;
+        }
+        else {
+            r[i] = b[ib];
+            ib++;
+        }
+    }
+}
+
+int partition (int v[], int N, int x) {}
+
 int main () {
-    char a[100] = "Esta e uma string com duplicados"; int b;
-    b=duplicaVogais(a);
-    printf("%s %d\n", a, b);
+    int b[] = {1,3,5,7,9}, a[] = {2,4,6,8,10}, c[10];
+    merge(a,5,b,5,c);
+    for (int i = 0 ; i<10 ; i++) printf("%d ", c[i]);
+    return 0;
 }
