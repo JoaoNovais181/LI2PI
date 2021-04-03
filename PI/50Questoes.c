@@ -440,7 +440,7 @@ void rightShift (int v[], int N, int x, int *i) {
 }
 
 void insere (int v[], int N, int x) {
-    int i,c, atual, proximo;
+    int i;
 
     for (i=0 ; i<=N ; i++) {
         if ((i==0) && (x<v[i])) {
@@ -453,11 +453,122 @@ void insere (int v[], int N, int x) {
     }
 }
 
+// Merge
+
+int menor (int a, int b, int* ia, int* ib)
+{
+    if (a<=b)
+        (*ia)++;
+    else
+        (*ib)++;
+    return a<=b ? a: b;
+}
+
+void merge (int r [], int a[], int b[], int na, int nb)
+{
+    int i, ia=0, ib=0;
+
+    for (i=0 ; i<na+nb ; i++)
+    {   
+        if (ia>=na) 
+        {
+            r[i] = b[ib];
+            ib++;
+        }
+        else if (ib>=nb) 
+        {
+            r[i] = a[ia];
+            ia++;
+        }
+        else 
+            r[i] = menor(a[ia], b[ib], &ia, &ib);
+    }   
+}
+
+// Crescente
+
+int crescente (int a[], int i, int j)
+{
+    int r=1;
+    for ( ; i<j ; i++)
+        if (a[i]>a[i+1]) r=0;
+
+    return r;
+}
+
+// Retira Neg
+
+int retiraNeg (int a[], int N)
+{
+    int i, retirados=0;
+
+    for (i=0 ; i<N ; i++)
+    {
+        if (a[i]<0) retirados++;
+        else a[i-retirados] = a[i];
+    }
+    return N-retirados;
+}
+
+// Menos Freq
+void resetVal (int *Atual, int i, int *anterior, int valor, int *contador)
+{
+    *Atual = i;
+    *anterior = valor;
+    *contador = 1;
+}
+
+int menosFreq (int v[], int N)
+{
+    int i, iAtual, iMenosFrequente, contador=0, anterior, contadorMenosFreq;
+
+    for (i=0 ; i<N ; i++)
+    {
+        if (i==0)
+        {
+            iAtual = 0;
+            iMenosFrequente = 0;
+            contador++;
+            anterior = v[0];
+        }
+        else 
+        {
+            if (v[i]==anterior) contador++;
+            else
+            {
+                if (iAtual == 0)
+                {
+                    contadorMenosFreq = contador;
+                    resetVal(&iAtual, i, &anterior, v[i], &contador);
+                }
+                else if (contador < contadorMenosFreq) 
+                {
+                    contadorMenosFreq = contador;
+                    iMenosFrequente = iAtual;
+                    resetVal(&iAtual, i, &anterior, v[i], &contador);
+                }
+                else
+                {
+                    resetVal(&iAtual, i, &anterior, v[i], &contador);
+                }
+            }
+        }
+    }
+
+    if (contador < contadorMenosFreq) 
+    {
+        contadorMenosFreq = contador;
+        iMenosFrequente = iAtual;
+    }
+
+    return v[iMenosFrequente];
+}
+
+
+
 int main(){
-    char a[] = "AABCBA", b[] = "bracara augusta"; int c;
-    c = remRep(a);
-    puts(a);
-    printf("%d\n", c);
+    int a[] = { 2  ,2  ,2  ,3 , 3,  3,  4,  4,  5,  5,  5,  5,  5,  5,  5,  6,  6,  6,  6,  6 };
+    printf("%d\n", menosFreq(a, 20));
     return 0;
 }
 

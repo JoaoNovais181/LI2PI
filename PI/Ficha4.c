@@ -141,6 +141,7 @@ int ordenado (int v[], int N) {
     return r;
 }
 
+// Exercicio 2
 void merge (int a[], int na, int b[], int nb, int r[]) {
     int i, ia=0, ib=0;
 //    na--, nb--;
@@ -156,11 +157,64 @@ void merge (int a[], int na, int b[], int nb, int r[]) {
     }
 }
 
-int partition (int v[], int N, int x) {}
+// Exercicio 3
+
+// Array auxiliar
+void arraycpy (int *origem, int N, int *destino)
+{
+    for (int i=0 ; i<N ; i++) destino[i]=origem[i];
+}
+
+int partition1 (int v[], int N, int x) 
+{
+    int i, j, k, aux[N]; 
+
+    for (i=k=0, j=N-1 ; j-k>=0 ; i++)
+    {
+        if (v[i] <= x) 
+        {
+            aux[k] = v[i];
+            k++;
+        }
+        else 
+        {
+            aux[j] = v[i];
+            j--;
+        }
+    }
+    arraycpy(aux, N, v);
+    return k;
+}
+
+// S/ Array Auxiliar
+
+void shiftLeft (int v[], int N, int x, int y) {
+    int i;
+
+    for (i=y ; i<N ; i++) v[i] = v[i+1];
+    v[N-1] = x;
+}
+
+int partition (int v[], int N, int x)
+{
+    int i, counter=0;
+
+    for (i=0 ; i+counter!=N ; i++)
+    {
+        if (v[i]>x)
+        {
+            shiftLeft(v, N, v[i], i);
+            counter++;
+            i--;
+        }
+    }
+    return i;
+}
 
 int main () {
-    int b[] = {1,3,5,7,9}, a[] = {2,4,6,8,10}, c[10];
-    merge(a,5,b,5,c);
-    for (int i = 0 ; i<10 ; i++) printf("%d ", c[i]);
+    int b[] = {9,5,3,6,2,7,3,5,2,53,8,5}, a;
+    a = partition(b, 12, 5);
+    for (int i = 0 ; i<12 ; i++) printf("%d ", b[i]);
+    printf("Primeira parte: %d\n", a);
     return 0;
 }
