@@ -211,6 +211,29 @@ int partition (int v[], int N, int x)
     return i;
 }
 
+//Partition Da Aula
+void swap(int v[], int i, int j)
+{
+    int aux = v[i];
+    v[i] = v[j];
+    v[j] = aux;
+} 
+int partition2 (int v[], int N, int x)
+{
+    int i, counter=0;
+
+    for (i=0 ; i+counter<N ; i++)
+    {
+        if (v[i]>x)
+        {
+            swap(v,i,N-counter-1);
+            counter++;
+            i--;
+        }
+    }
+    return i;
+}
+
 int main () {
     int b[] = {9,5,3,6,2,7,3,5,2,53,8,5}, a;
     a = partition(b, 12, 5);
