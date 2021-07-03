@@ -300,7 +300,6 @@ LInt cloneRev (LInt l)
     }
     return r;
 }
-
 int maximo (LInt l)
 {
     int maior = l->valor;

@@ -3,7 +3,6 @@
 int cmp (int a, int b)
 {
     int r=0;
-    printf("a : %d b : %d\n", a, b);
     if (a<b) r = -1;
     else if (a>b) r = 1;
     return r;

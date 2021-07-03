@@ -89,7 +89,6 @@ int partition (Aluno v[], int N, int x)
 void ordenaPorNum (Aluno t[], int N)
 {
     if (N<=1) return;
-    int i=0;
     int pivot = t[0].numero;
     int menores = partition(t+1,N-1,pivot);
 
@@ -188,6 +187,23 @@ void criaIndPorNome (Aluno t [], int N, int ind[])
     }
 }
 
+void imprimeTurma2 (Aluno t[], int N)
+{
+    int i, j;
+    Aluno a;
+
+    for (i=0 ; i<N ; i++)
+    {
+        a = t[i];
+        printf("%d %s { ", a.numero, a.nome);
+
+        for(j=0 ; j<6 ; j++)
+            printf("%d ", a.miniT[j]);
+
+        printf("} %lf\n", a.teste);
+    }
+}
+
 int main ()
 {
     Aluno lista[4] = {{4444, "Andre", {2,1,0,2,2,2}, 10.5},
@@ -196,9 +212,9 @@ int main ()
                       {3333, "Paulo", {0,0,2,2,2,1},  8.7}};
     int ind[4];
 
-    criaIndPorNome(lista, 4, ind);
+    ordenaPorNum(lista,4);
 
-    imprimeTurma(ind, lista, 4);
+    imprimeTurma2(lista, 4);
 
     return 0;
 }
